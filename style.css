@@ -1,0 +1,224 @@
+
+body {
+    background: #f5f7fb;
+    color: #263238;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background: #182848;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.hero {
+    padding: 80px 20px;
+    color: white;
+    background: linear-gradient(135deg, #182848, #4b6cb7);
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+}
+
+.hero p {
+    margin: 18px 0 28px;
+    font-size: 1.2rem;
+}
+
+.section-title {
+    margin-bottom: 25px;
+    font-weight: 800;
+}
+
+.food-card,
+.tracking-card {
+    overflow: hidden;
+    background: white;
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(24, 40, 72, 0.08);
+}
+
+.food-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(24, 40, 72, 0.15);
+}
+
+.food-image {
+    height: 190px;
+    object-fit: cover;
+}
+
+.price {
+    color: #147d4a;
+    font-weight: 800;
+}
+
+.tracking-section {
+    padding: 30px 0 50px;
+}
+
+.tracking-card {
+    padding: 28px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 30px;
+    color: #fff;
+    background: #244f9e;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+}
+
+.timeline-step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 9px;
+    color: #929baa;
+    font-size: 0.82rem;
+    text-align: center;
+}
+
+.timeline-dot {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 2px solid #d7dce5;
+    border-radius: 50%;
+    background: #fff;
+    font-weight: 700;
+}
+
+.timeline-step.completed {
+    color: #168553;
+}
+
+.timeline-step.completed .timeline-dot {
+    color: white;
+    border-color: #168553;
+    background: #168553;
+}
+
+.timeline-step.active .timeline-dot {
+    outline: 4px solid #dbe8ff;
+    border-color: #244f9e;
+    background: #244f9e;
+}
+
+.map-demo {
+    padding: 20px;
+    border-radius: 14px;
+    background-color: #eaf1e6;
+    background-image:
+        linear-gradient(30deg, transparent 48%, #d2dfcc 49%, #d2dfcc 51%, transparent 52%),
+        linear-gradient(120deg, transparent 48%, #d2dfcc 49%, #d2dfcc 51%, transparent 52%);
+    background-size: 65px 65px;
+}
+
+.map-label {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.route-line {
+    position: relative;
+    height: 90px;
+    margin: 15px 20px 0;
+    border-bottom: 5px dashed #779c75;
+}
+
+.route-start,
+.route-end,
+.courier-marker {
+    position: absolute;
+    bottom: -15px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 3px 10px #0002;
+}
+
+.route-start {
+    left: 0;
+}
+
+.route-end {
+    right: 0;
+}
+
+.courier-marker {
+    left: 0;
+    z-index: 1;
+    font-size: 1.3rem;
+    transition: left 1.5s ease-in-out;
+}
+
+.courier-marker.moving {
+    animation: courierPulse 1.5s infinite alternate;
+}
+
+.map-note {
+    margin: 25px 0 0;
+    color: #586957;
+    font-size: 0.78rem;
+}
+
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+@keyframes courierPulse {
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
+}
+
+@media (max-width: 600px) {
+    .tracking-card {
+        padding: 18px;
+    }
+
+    .timeline {
+        gap: 3px;
+    }
+
+    .timeline-step {
+        font-size: 0.68rem;
+    }
+
+    .timeline-dot {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+}
