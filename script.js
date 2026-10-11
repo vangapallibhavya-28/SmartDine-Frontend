@@ -1,5 +1,6 @@
 
 "use strict";
+const API_BASE_URL = "https://smartdine-backend-265f.onrender.com";
 
 let cart = [];
 let menuItems = [];
@@ -166,7 +167,7 @@ async function loadMenu() {
         '<p class="text-muted">Loading menu...</p>';
 
     try {
-        const response = await fetch("/api/menu");
+        const response = await fetch(`${API_BASE_URL}/api/menu`)
         const items = await readResponse(response);
 
         if (!Array.isArray(items)) {
@@ -879,11 +880,14 @@ async function advanceDeliveryStatus() {
     }
 
     try {
-        const response = await fetch(
-            `/api/orders/${encodeURIComponent(currentTrackingOrderId)}/tracking/advance`,
-            {
-                method: "POST"
-            }
+        
+const response = await fetch(
+    `${API_BASE_URL}/api/orders/${encodeURIComponent(currentTrackingOrderId)}`,
+    {
+        method: "POST"
+    }
+);
+        
         );
 
         await readResponse(response);
