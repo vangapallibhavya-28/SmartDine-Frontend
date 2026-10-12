@@ -10,14 +10,22 @@ let remainingSeconds = 0;
 
 const FALLBACK_IMAGE = "/images/biryani.jpg";
 
+
 const menuImages = {
     "biryani.jpg": "/images/biryani.jpg",
     "brayani.jpg": "/images/biryani.jpg",
+    "chicken biryani": "/images/biryani.jpg",
+    "veg biryani": "/images/biryani.jpg",
     "pizza.jpg": "/images/pizza.jpg",
+    "pizza": "/images/pizza.jpg",
     "burger.jpg": "/images/burger.jpg",
+    "burger": "/images/burger.jpg",
     "coffee.jpg": "/images/coffee.jpg",
-    "coldcoffee.jpg": "/images/coffee.jpg"
+    "coldcoffee.jpg": "/images/coffee.jpg",
+    "classic cold coffee": "/images/coffee.jpg",
+    "chocolate cold coffee": "/images/coffee.jpg"
 };
+
 
 const deliveryStatuses = [
     "PLACED",
@@ -127,14 +135,15 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
-function getFoodImage(filename) {
-    if (!filename) {
-        return FALLBACK_IMAGE;
-    }
 
-    const value = String(filename).trim();
+function getFoodImage(filename, foodName = "") {
+    const value = String(filename || "").trim();
 
-    if (/^https?:\/\//i.test(value)) {
+    // Use an actual URL only if it isn't the placeholder URL.
+    if (
+        /^https?:\/\//i.test(value) &&
+        !value.includes("placehold.co")
+    ) {
         return value;
     }
 
@@ -145,9 +154,10 @@ function getFoodImage(filename) {
         .toLowerCase()
         .trim();
 
-    return menuImages[key] || FALLBACK_IMAGE;
-}
+    const name = String(foodName).toLowerCase().trim();
 
+    return menuImages[key] || menuImages[name] || FALLBACK_IMAGE;
+}
 
 function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -190,7 +200,7 @@ async function loadMenu() {
         menuList.innerHTML = items.map(item => {
             const id = Number(item.id);
             const price = Number(item.price) || 0;
-            const image = getFoodImage(item.image);
+            const image = getFoodImage(item.image, item.name);
             const unavailable = item.available === false;
 
             return `
