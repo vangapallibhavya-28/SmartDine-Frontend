@@ -893,8 +893,6 @@ const response = await fetch(
         method: "POST"
     }
 );
-        
-        );
 
         await readResponse(response);
 
