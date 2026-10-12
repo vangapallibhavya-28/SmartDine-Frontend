@@ -127,13 +127,18 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
-
 function getFoodImage(filename) {
     if (!filename) {
         return FALLBACK_IMAGE;
     }
 
-    const key = String(filename)
+    const value = String(filename).trim();
+
+    if (/^https?:\/\//i.test(value)) {
+        return value;
+    }
+
+    const key = value
         .replace(/\\/g, "/")
         .split("/")
         .pop()
@@ -142,6 +147,7 @@ function getFoodImage(filename) {
 
     return menuImages[key] || FALLBACK_IMAGE;
 }
+
 
 function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
@@ -685,7 +691,7 @@ async function trackOrder() {
 
     try {
         const response = await fetch(
-            `/api/orders/${encodeURIComponent(id)}/tracking`
+            `${API_BASE_URL}/api/orders/${encodeURIComponent(id)}/tracking`
         );
 
         const data = await readResponse(response);
