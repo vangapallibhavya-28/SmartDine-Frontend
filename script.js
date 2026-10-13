@@ -182,6 +182,7 @@ function getFoodImage(filename, foodName = "") {
 
 async function loadMenu() {
     const menuList = document.getElementById("menuList");
+    alert("Menu function started!");
 
     if (!menuList) {
         console.error("HTML element menuList is missing.");
@@ -193,6 +194,7 @@ async function loadMenu() {
 
     try {
           const response = await fetch(`${API_BASE_URL}/api/menu`);
+          alert("API response received: " + response.status);
 console.log("Menu API status:", response.status);
 
 const items = await readResponse(response);
