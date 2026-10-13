@@ -193,11 +193,31 @@ async function loadMenu() {
         '<p class="text-muted">Loading menu...</p>';
 
     try {
-          const response = await fetch(`${API_BASE_URL}/api/menu`);
-          alert("API response received: " + response.status);
-console.log("Menu API status:", response.status);
+          const response = await fetch("${API_BASE_URL}/api/menu");
 
+menuList.innerHTML =
+'<p class="text-muted">API response received. Processing menu...</p>';
+
+try {
 const items = await readResponse(response);
+
+menuList.innerHTML =
+    '<p class="text-success">Response processed successfully!</p>';
+
+alert("Response processed. Is array: " + Array.isArray(items));
+alert("Menu item count: " + (Array.isArray(items) ? items.length : "Not an array"));
+
+} catch (error) {
+menuList.innerHTML =
+"<div class="alert alert-danger">Response error: ${error.message}</div>";
+return;
+}
+
+if (!Array.isArray(items)) {
+throw new Error("Menu API did not return a list.");
+}
+
+menuItems = items;
         alert("Response processed. Is array: " + Array.isArray(items));
 alert("Menu item count: " + (Array.isArray(items) ? items.length : "Not an array"));
 console.log("Menu items received:", items.length);
