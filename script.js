@@ -896,13 +896,12 @@ async function advanceDeliveryStatus() {
     }
 
     try {
-        
-const response = await fetch(
-    `${API_BASE_URL}/api/orders/${encodeURIComponent(currentTrackingOrderId)}`,
-    {
-        method: "POST"
-    }
-);
+        const response = await fetch(
+            `${API_BASE_URL}/api/orders/${encodeURIComponent(currentTrackingOrderId)}/tracking/advance`,
+            {
+                method: "POST"
+            }
+        );
 
         await readResponse(response);
 
@@ -914,11 +913,9 @@ const response = await fetch(
 
     } catch (error) {
         console.error("Delivery status update error:", error);
-
         alert(`Could not update delivery status: ${error.message}`);
     }
 }
-
 function trackConfirmedOrder() {
     const id = document.getElementById(
         "confirmationOrderId"
