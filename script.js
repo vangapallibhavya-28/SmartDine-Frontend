@@ -140,7 +140,7 @@ function getFoodImage(filename, foodName = "") {
     const value = String(filename || "").trim();
     const name = String(foodName || "").toLowerCase().trim();
 
-    // Use real image URLs, except placeholders.
+    // Keep valid image URLs supplied by the backend.
     if (
         /^https?:\/\//i.test(value) &&
         !value.toLowerCase().includes("placehold.co")
@@ -148,73 +148,33 @@ function getFoodImage(filename, foodName = "") {
         return value;
     }
 
-    // Map menu item names to their correct images.
-    if (name.includes("biryani")) {
-        return "/images/biryani.jpg";
-    }
+    // Match each food to its own local image.
+    const foodImages = {
+        "chicken biryani": "/images/chicken-biryani.jpg",
+        "veg biryani": "/images/veg-biryani.jpg",
+        "paneer biryani": "/images/paneer-biryani.jpg",
+        "chicken 65": "/images/chicken-65.jpg",
+        "veg fried rice": "/images/veg-fried-rice.jpg",
+        "gulab jamun": "/images/gulab-jamun.jpg",
+        "double ka meetha": "/images/double-ka-meetha.jpg",
+        "chocolate brownie": "/images/brownie.jpg",
+        "masala dosa": "/images/masala-dosa.jpg",
+        "idli vada": "/images/idli-vada.jpg",
+        "pesarattu": "/images/pesarattu.jpg",
+        "classic cold coffee": "/images/classic-cold-coffee.jpg",
+        "chocolate cold coffee": "/images/chocolate-cold-coffee.jpg",
+        "orange juice": "/images/orange-juice.jpg",
+        "watermelon juice": "/images/watermelon-juice.jpg",
+        "mosambi juice": "/images/mosambi-juice.jpg",
+        "full meals plate": "/images/full-meals.jpg",
+        "pizza": "/images/pizza.jpg",
+        "burger": "/images/burger.jpg"
+    };
 
-    if (name.includes("pizza")) {
-        return "/images/pizza.jpg";
-    }
-
-    if (name.includes("burger")) {
-        return "/images/burger.jpg";
-    }
-
-    if (name.includes("coffee")) {
-        return "/images/coffee.jpg";
-    }
-
-    if (name.includes("chicken 65")) {
-        return "https://placehold.co/400x300?text=Chicken+65";
-    }
-
-    if (name.includes("fried rice")) {
-        return "https://placehold.co/400x300?text=Veg+Fried+Rice";
-    }
-
-    if (name.includes("gulab jamun")) {
-        return "https://placehold.co/400x300?text=Gulab+Jamun";
-    }
-
-    if (name.includes("double ka meetha")) {
-        return "https://placehold.co/400x300?text=Double+Ka+Meetha";
-    }
-
-    if (name.includes("brownie")) {
-        return "https://placehold.co/400x300?text=Chocolate+Brownie";
-    }
-
-    if (name.includes("dosa")) {
-        return "https://placehold.co/400x300?text=Masala+Dosa";
-    }
-
-    if (name.includes("idli vada")) {
-        return "https://placehold.co/400x300?text=Idli+Vada";
-    }
-
-    if (name.includes("pesarattu")) {
-        return "https://placehold.co/400x300?text=Pesarattu";
-    }
-
-    if (name.includes("orange juice")) {
-        return "https://placehold.co/400x300?text=Orange+Juice";
-    }
-
-    if (name.includes("watermelon")) {
-        return "https://placehold.co/400x300?text=Watermelon+Juice";
-    }
-
-    if (name.includes("mosambi")) {
-        return "https://placehold.co/400x300?text=Mosambi+Juice";
-    }
-
-    if (name.includes("full meals")) {
-        return "https://placehold.co/400x300?text=Full+Meals";
-    }
-
-    return "https://placehold.co/400x300?text=Food";
+    return foodImages[name] || "/images/food-placeholder.jpg";
 }
+
+    
 
 // -------------------- LOAD MENU --------------------
 
