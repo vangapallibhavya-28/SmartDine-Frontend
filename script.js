@@ -152,7 +152,7 @@ function getFoodImage(filename, foodName = "") {
     const foodImages = {
         "chicken biryani": "/images/chicken-biryani.jpg",
         "veg biryani": "/images/veg-biryani.jpg",
-        "paneer biryani": "/images/paneer-biryani.jpg",
+        "paneer biryani": "/images/paneer-biryani.png",
         "chicken 65": "/images/chicken-65.jpg",
         "veg fried rice": "/images/veg-fried-rice.jpg",
         "gulab jamun": "/images/gulab-jamun.jpg",
