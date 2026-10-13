@@ -212,7 +212,7 @@ async function loadMenu() {
                             alt="${escapeHtml(item.name)}"
                             loading="lazy"
                             style="height:220px; object-fit:cover;"
-                            onerror="this.onerror=null;this.src='/images/biryani.jpg'"
+                            onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Food+Image'"
                         >
 
                         <div class="card-body d-flex flex-column">
