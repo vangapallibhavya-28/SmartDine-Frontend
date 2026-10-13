@@ -233,10 +233,12 @@ console.log("Menu items received:", items.length);
             return;
         }
 
+        alert("Starting to render 19 menu items");
         menuList.innerHTML = items.map(item => {
             const id = Number(item.id);
             const price = Number(item.price) || 0;
             const image = getFoodImage(item.image, item.name);
+            alert("Menu cards rendered successfully");
             const unavailable = item.available === false;
 
             return `
