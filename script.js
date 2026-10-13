@@ -135,11 +135,12 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
+
 function getFoodImage(filename, foodName = "") {
     const value = String(filename || "").trim();
-    const name = String(foodName || "").trim().toLowerCase();
+    const name = String(foodName || "").toLowerCase().trim();
 
-    // Keep real image URLs, except placeholder URLs.
+    // Use real image URLs, except placeholders.
     if (
         /^https?:\/\//i.test(value) &&
         !value.toLowerCase().includes("placehold.co")
@@ -147,29 +148,73 @@ function getFoodImage(filename, foodName = "") {
         return value;
     }
 
-    const combined = `${value} ${name}`.toLowerCase();
-
-    if (combined.includes("biryani") ||
-        combined.includes("brayani")) {
+    // Map menu item names to their correct images.
+    if (name.includes("biryani")) {
         return "/images/biryani.jpg";
     }
 
-    if (combined.includes("pizza")) {
+    if (name.includes("pizza")) {
         return "/images/pizza.jpg";
     }
 
-    if (combined.includes("burger")) {
+    if (name.includes("burger")) {
         return "/images/burger.jpg";
     }
 
-    if (combined.includes("coffee")) {
+    if (name.includes("coffee")) {
         return "/images/coffee.jpg";
     }
 
-    // Don't display biryani for unrelated foods.
-    return "https://placehold.co/400x300?text=Food+Image";
-}
+    if (name.includes("chicken 65")) {
+        return "https://placehold.co/400x300?text=Chicken+65";
+    }
 
+    if (name.includes("fried rice")) {
+        return "https://placehold.co/400x300?text=Veg+Fried+Rice";
+    }
+
+    if (name.includes("gulab jamun")) {
+        return "https://placehold.co/400x300?text=Gulab+Jamun";
+    }
+
+    if (name.includes("double ka meetha")) {
+        return "https://placehold.co/400x300?text=Double+Ka+Meetha";
+    }
+
+    if (name.includes("brownie")) {
+        return "https://placehold.co/400x300?text=Chocolate+Brownie";
+    }
+
+    if (name.includes("dosa")) {
+        return "https://placehold.co/400x300?text=Masala+Dosa";
+    }
+
+    if (name.includes("idli vada")) {
+        return "https://placehold.co/400x300?text=Idli+Vada";
+    }
+
+    if (name.includes("pesarattu")) {
+        return "https://placehold.co/400x300?text=Pesarattu";
+    }
+
+    if (name.includes("orange juice")) {
+        return "https://placehold.co/400x300?text=Orange+Juice";
+    }
+
+    if (name.includes("watermelon")) {
+        return "https://placehold.co/400x300?text=Watermelon+Juice";
+    }
+
+    if (name.includes("mosambi")) {
+        return "https://placehold.co/400x300?text=Mosambi+Juice";
+    }
+
+    if (name.includes("full meals")) {
+        return "https://placehold.co/400x300?text=Full+Meals";
+    }
+
+    return "https://placehold.co/400x300?text=Food";
+}
 
 // -------------------- LOAD MENU --------------------
 
