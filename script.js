@@ -198,6 +198,8 @@ async function loadMenu() {
 console.log("Menu API status:", response.status);
 
 const items = await readResponse(response);
+        alert("Response processed. Is array: " + Array.isArray(items));
+alert("Menu item count: " + (Array.isArray(items) ? items.length : "Not an array"));
 console.log("Menu items received:", items.length);
 
         if (!Array.isArray(items)) {
