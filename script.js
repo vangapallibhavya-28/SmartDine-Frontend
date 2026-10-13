@@ -181,127 +181,104 @@ function getFoodImage(filename, foodName = "") {
 // -------------------- LOAD MENU --------------------
 
 async function loadMenu() {
-    const menuList = document.getElementById("menuList");
-    alert("Menu function started!");
+const menuList = document.getElementById("menuList");
 
-    if (!menuList) {
-        console.error("HTML element menuList is missing.");
+if (!menuList) {
+    console.error("HTML element menuList is missing.");
+    return;
+}
+
+menuList.innerHTML =
+    '<p class="text-muted">Loading menu...</p>';
+
+try {
+    const response = await fetch(`${API_BASE_URL}/api/menu`);
+
+    console.log("Menu API status:", response.status);
+
+    const items = await readResponse(response);
+
+    console.log("Menu items received:", items);
+
+    if (!Array.isArray(items)) {
+        throw new Error("Menu API did not return a list.");
+    }
+
+    menuItems = items;
+
+    if (items.length === 0) {
+        menuList.innerHTML = '<p>No menu items available.</p>';
         return;
     }
 
-    menuList.innerHTML =
-        '<p class="text-muted">Loading menu...</p>';
+    menuList.innerHTML = items.map(item => {
+        const id = Number(item.id);
+        const price = Number(item.price) || 0;
+        const image = getFoodImage(item.image, item.name);
+        const unavailable = item.available === false;
 
-    try {
-          const response = await fetch("${API_BASE_URL}/api/menu");
+        return `
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img
+                        src="${escapeHtml(image)}"
+                        class="card-img-top"
+                        alt="${escapeHtml(item.name || "Food")}"
+                        loading="lazy"
+                        style="height:220px; object-fit:cover;"
+                        onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Food+Image'"
+                    >
 
-menuList.innerHTML =
-'<p class="text-muted">API response received. Processing menu...</p>';
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">
+                            ${escapeHtml(item.name || "Food")}
+                        </h5>
 
-try {
-const items = await readResponse(response);
+                        <p class="text-muted mb-2">
+                            ${escapeHtml(item.category || "Food")}
+                        </p>
 
-menuList.innerHTML =
-    '<p class="text-success">Response processed successfully!</p>';
+                        <p class="card-text">
+                            ${escapeHtml(item.description || "")}
+                        </p>
 
-alert("Response processed. Is array: " + Array.isArray(items));
-alert("Menu item count: " + (Array.isArray(items) ? items.length : "Not an array"));
+                        <h5 class="text-success">
+                            ₹${price.toFixed(2)}
+                        </h5>
 
-} catch (error) {
-menuList.innerHTML =
-"<div class="alert alert-danger">Response error: ${error.message}</div>";
-return;
-}
-
-if (!Array.isArray(items)) {
-throw new Error("Menu API did not return a list.");
-}
-
-menuItems = items;
-        alert("Response processed. Is array: " + Array.isArray(items));
-alert("Menu item count: " + (Array.isArray(items) ? items.length : "Not an array"));
-console.log("Menu items received:", items.length);
-
-        if (!Array.isArray(items)) {
-            throw new Error("Menu API did not return a list.");
-        }
-
-        menuItems = items;
-
-        if (items.length === 0) {
-            menuList.innerHTML = '<p>No menu items available.</p>';
-            return;
-        }
-
-        alert("Starting to render 19 menu items");
-        menuList.innerHTML = items.map(item => {
-            const id = Number(item.id);
-            const price = Number(item.price) || 0;
-            const image = getFoodImage(item.image, item.name);
-            alert("Menu cards rendered successfully");
-            const unavailable = item.available === false;
-
-            return `
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow-sm">
-                        <img
-                            src="${escapeHtml(image)}"
-                            class="card-img-top"
-                            alt="${escapeHtml(item.name)}"
-                            loading="lazy"
-                            style="height:220px; object-fit:cover;"
-                            onerror="this.onerror=null;this.src='https://placehold.co/400x300?text=Food+Image'"
+                        <button
+                            type="button"
+                            class="btn btn-primary mt-auto"
+                            onclick="addToCart(${id})"
+                            ${unavailable ? "disabled" : ""}
                         >
-
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">
-                                ${escapeHtml(item.name)}
-                            </h5>
-
-                            <p class="text-muted mb-2">
-                                ${escapeHtml(item.category || "Food")}
-                            </p>
-
-                            <p class="card-text">
-                                ${escapeHtml(item.description || "")}
-                            </p>
-
-                            <h5 class="text-success">
-                                ₹${price.toFixed(2)}
-                            </h5>
-
-                            <button
-                                type="button"
-                                class="btn btn-primary mt-auto"
-                                onclick="addToCart(${id})"
-                                ${unavailable ? "disabled" : ""}
-                            >
-                                ${unavailable ? "Unavailable" : "Add to Cart"}
-                            </button>
-                        </div>
+                            ${unavailable ? "Unavailable" : "Add to Cart"}
+                        </button>
                     </div>
                 </div>
-            `;
-        }).join("");
-
-    } catch (error) {
-        console.error("Menu loading error:", error);
-
-        menuList.innerHTML = `
-            <div class="alert alert-danger">
-                Unable to load menu: ${escapeHtml(error.message)}
-                <button
-                    type="button"
-                    class="btn btn-sm btn-outline-danger ms-2"
-                    onclick="loadMenu()"
-                >
-                    Retry
-                </button>
             </div>
         `;
-    }
+    }).join("");
+
+} catch (error) {
+    console.error("Menu loading error:", error);
+
+    menuList.innerHTML = `
+        <div class="alert alert-danger">
+            Unable to load menu: ${escapeHtml(error.message)}
+            <button
+                type="button"
+                class="btn btn-sm btn-outline-danger ms-2"
+                onclick="loadMenu()"
+            >
+                Retry
+            </button>
+        </div>
+    `;
 }
 
+}
+        
 // -------------------- CART --------------------
 
 function addToCart(id) {
