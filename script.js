@@ -1,5 +1,7 @@
 
 "use strict";
+alert("SmartDine JavaScript is running!");
+console.log("SmartDine script loaded");
 const API_BASE_URL = "https://smartdine-backend-265f.onrender.com";
 
 let cart = [];
