@@ -190,8 +190,11 @@ async function loadMenu() {
         '<p class="text-muted">Loading menu...</p>';
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/menu`)
-        const items = await readResponse(response);
+          const response = await fetch(`${API_BASE_URL}/api/menu`);
+console.log("Menu API status:", response.status);
+
+const items = await readResponse(response);
+console.log("Menu items received:", items.length);
 
         if (!Array.isArray(items)) {
             throw new Error("Menu API did not return a list.");
