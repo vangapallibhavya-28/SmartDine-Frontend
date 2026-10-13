@@ -135,39 +135,41 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
-
 function getFoodImage(filename, foodName = "") {
     const value = String(filename || "").trim();
+    const name = String(foodName || "").trim().toLowerCase();
 
-    // Use an actual URL only if it isn't the placeholder URL.
+    // Keep real image URLs, except placeholder URLs.
     if (
         /^https?:\/\//i.test(value) &&
-        !value.includes("placehold.co")
+        !value.toLowerCase().includes("placehold.co")
     ) {
         return value;
     }
 
-    const key = value
-        .replace(/\\/g, "/")
-        .split("/")
-        .pop()
-        .toLowerCase()
-        .trim();
+    const combined = `${value} ${name}`.toLowerCase();
 
-    const name = String(foodName).toLowerCase().trim();
+    if (combined.includes("biryani") ||
+        combined.includes("brayani")) {
+        return "/images/biryani.jpg";
+    }
 
-    return menuImages[key] || menuImages[name] || FALLBACK_IMAGE;
+    if (combined.includes("pizza")) {
+        return "/images/pizza.jpg";
+    }
+
+    if (combined.includes("burger")) {
+        return "/images/burger.jpg";
+    }
+
+    if (combined.includes("coffee")) {
+        return "/images/coffee.jpg";
+    }
+
+    // Don't display biryani for unrelated foods.
+    return "https://placehold.co/400x300?text=Food+Image";
 }
 
-function escapeHtml(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[char]);
-}
 
 // -------------------- LOAD MENU --------------------
 
