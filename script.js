@@ -167,9 +167,6 @@ return "https://placehold.co/400x300?text=Food";
 
 }
 
-   
- 
-
 // -------------------- HTML ESCAPING --------------------
 
 function escapeHtml(value) {
