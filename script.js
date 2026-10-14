@@ -133,20 +133,21 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
-
 function getFoodImage(filename, foodName = "") {
     const name = String(foodName).toLowerCase().trim();
+    const file = String(filename || "").toLowerCase().trim();
 
     const images = {
-        "chicken biryani": "/images/chicken.jpg",
-        "paneer biryani": "/images/panner brayini.png",
+        "chicken biryani": "/images/biryani.jpg",
+        "paneer biryani": "/images/paneer-biryani.png",
+        "classic cold coffee": "/images/coffee.jpg",
         "pizza": "/images/pizza.jpg",
-        "burger": "/images/burger.jpg",
-        "classic cold coffee": "/images/cold coffee.jpg"
+        "burger": "/images/burger.jpg"
     };
 
     return images[name] ||
-        "https://placehold.co/400x300?text=Food";
+        menuImages[file] ||
+        FALLBACK_IMAGE;
 }
 // -------------------- HTML ESCAPING --------------------
 
