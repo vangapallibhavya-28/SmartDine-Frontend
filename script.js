@@ -815,12 +815,19 @@ function updateCourier(status) {
 
 // -------------------- ETA COUNTDOWN --------------------
 
+
 function startCountdown(minutes, status, startedAt) {
     clearInterval(countdownInterval);
 
     const etaElement = document.getElementById("eta");
 
     if (!etaElement) {
+        return;
+    }
+
+    if (status === "READY") {
+        clearInterval(countdownInterval);
+        etaElement.textContent = "Waiting for pickup";
         return;
     }
 
