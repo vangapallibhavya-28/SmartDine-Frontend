@@ -13,10 +13,11 @@ const FALLBACK_IMAGE = "/images/biryani.jpg";
 
 
 const menuImages = {
-    "biryani.jpg": "/images/biryani.jpg",
-    "brayani.jpg": "/images/biryani.jpg",
-    "chicken biryani": "/images/biryani.jpg",
-    "veg biryani": "/images/biryani.jpg",
+    "biryani.jpg": "/images/chicken-biryani.jpg",
+    "brayani.jpg": "/images/chicken-biryani.jpg",
+    "chicken biryani": "/images/chicken-biryani.jpg",
+    "veg biryani": "/images/chicken-biryani.jpg",
+    "paneer biryani": "/images/paneer-biryani.png",
     "pizza.jpg": "/images/pizza.jpg",
     "pizza": "/images/pizza.jpg",
     "burger.jpg": "/images/burger.jpg",
@@ -27,7 +28,6 @@ const menuImages = {
     "chocolate cold coffee": "/images/coffee.jpg"
 };
 
-
 const deliveryStatuses = [
     "PLACED",
     "PREPARING",
@@ -35,7 +35,6 @@ const deliveryStatuses = [
     "OUT_FOR_DELIVERY",
     "DELIVERED"
 ];
-
 // -------------------- INITIALIZATION --------------------
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -168,34 +167,10 @@ return "https://placehold.co/400x300?text=Food";
 
 }
 
+   
+ 
 
-
-
-    // Match each food to its own local image.
-    const foodImages = {
-        "chicken biryani": "/images/chicken-biryani.jpg",
-        "veg biryani": "/images/veg-biryani.jpg",
-        "paneer biryani": "/images/paneer-biryani.png",
-        "chicken 65": "/images/chicken-65.jpg",
-        "veg fried rice": "/images/veg-fried-rice.jpg",
-        "gulab jamun": "/images/gulab-jamun.jpg",
-        "double ka meetha": "/images/double-ka-meetha.jpg",
-        "chocolate brownie": "/images/brownie.jpg",
-        "masala dosa": "/images/masala-dosa.jpg",
-        "idli vada": "/images/idli-vada.jpg",
-        "pesarattu": "/images/pesarattu.jpg",
-        "classic cold coffee": "/images/classic-cold-coffee.jpg",
-        "chocolate cold coffee": "/images/chocolate-cold-coffee.jpg",
-        "orange juice": "/images/orange-juice.jpg",
-        "watermelon juice": "/images/watermelon-juice.jpg",
-        "mosambi juice": "/images/mosambi-juice.jpg",
-        "full meals plate": "/images/full-meals.jpg",
-        "pizza": "/images/pizza.jpg",
-        "burger": "/images/burger.jpg"
-    };
-
-    return foodImages[name] || "/images/food-placeholder.jpg";
-}
+// -------------------- HTML ESCAPING --------------------
 
 function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
