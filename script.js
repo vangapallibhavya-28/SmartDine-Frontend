@@ -11,21 +11,19 @@ let remainingSeconds = 0;
 
 const FALLBACK_IMAGE = "/images/biryani.jpg";
 
-
 const menuImages = {
-    "biryani.jpg": "/images/chicken-biryani.jpg",
-    "brayani.jpg": "/images/chicken-biryani.jpg",
-    "chicken biryani": "/images/chicken-biryani.jpg",
-    "veg biryani": "/images/chicken-biryani.jpg",
+    "biryani.jpg": "/images/biryani.jpg",
+    "brayani.jpg": "/images/biryani.jpg",
+    "chicken biryani": "/images/biryani.jpg",
     "paneer biryani": "/images/paneer-biryani.png",
+    "paneer-biryani.png": "/images/paneer-biryani.png",
     "pizza.jpg": "/images/pizza.jpg",
     "pizza": "/images/pizza.jpg",
     "burger.jpg": "/images/burger.jpg",
     "burger": "/images/burger.jpg",
     "coffee.jpg": "/images/coffee.jpg",
     "coldcoffee.jpg": "/images/coffee.jpg",
-    "classic cold coffee": "/images/coffee.jpg",
-    "chocolate cold coffee": "/images/coffee.jpg"
+    "classic cold coffee": "/images/coffee.jpg"
 };
 
 const deliveryStatuses = [
