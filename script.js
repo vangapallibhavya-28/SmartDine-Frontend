@@ -140,7 +140,6 @@ function getFoodImage(filename, foodName = "") {
 const value = String(filename || "").trim();
 const name = String(foodName || "").toLowerCase().trim();
 
-```
 if (
     /^https?:\/\//i.test(value) &&
     !value.toLowerCase().includes("placehold.co")
@@ -165,7 +164,7 @@ if (name.includes("coffee")) {
 }
 
 return "https://placehold.co/400x300?text=Food";
-```
+
 
 }
 
