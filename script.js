@@ -136,21 +136,17 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
-
 function getFoodImage(filename, foodName = "") {
 const value = String(filename || "").trim();
+const name = String(foodName || "").toLowerCase().trim();
 
 ```
-// Use a valid image URL supplied by the backend.
 if (
     /^https?:\/\//i.test(value) &&
     !value.toLowerCase().includes("placehold.co")
 ) {
     return value;
 }
-
-// Use the images that already exist in your project.
-const name = String(foodName || "").toLowerCase().trim();
 
 if (name.includes("biryani")) {
     return "/images/biryani.jpg";
@@ -168,11 +164,13 @@ if (name.includes("coffee")) {
     return "/images/coffee.jpg";
 }
 
-// Display a fallback image for other menu items.
 return "https://placehold.co/400x300?text=Food";
 ```
 
 }
+
+
+
 
     // Match each food to its own local image.
     const foodImages = {
