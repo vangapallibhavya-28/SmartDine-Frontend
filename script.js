@@ -139,40 +139,17 @@ function showCheckoutMessage(text, type = "success") {
 function getFoodImage(filename, foodName = "") {
     const name = String(foodName).toLowerCase().trim();
 
-    // Use the correct image for each available food item
-    const foodImages = {
+    const images = {
         "chicken biryani": "/images/chicken.jpg",
-        "paneer biryani": "/images/paneer-biryani.jpg",
+        "paneer biryani": "/images/panner brayini.png",
         "pizza": "/images/pizza.jpg",
         "burger": "/images/burger.jpg",
-        "classic cold coffee": "/images/cold-coffee.jpg",
-        "chocolate cold coffee": "/images/cold-coffee.jpg"
+        "classic cold coffee": "/images/cold coffee.jpg"
     };
 
-    // Match the food name first
-    if (foodImages[name]) {
-        return foodImages[name];
-    }
-
-    // Use a valid image URL supplied by the API, if available
-    const value = String(filename || "").trim();
-
-    if (
-        /^https?:\/\//i.test(value) &&
-        !value.toLowerCase().includes("placehold.co")
-    ) {
-        return value;
-    }
-
-    // Use the supplied filename if it exists
-    if (value && !value.includes("..") && !value.startsWith("/")) {
-        return `/images/${encodeURIComponent(value)}`;
-    }
-
-    // Show a placeholder for items without a matching image
-    return "https://placehold.co/400x300?text=Food";
+    return images[name] ||
+        "https://placehold.co/400x300?text=Food";
 }
-
 // -------------------- HTML ESCAPING --------------------
 
 function escapeHtml(value) {
