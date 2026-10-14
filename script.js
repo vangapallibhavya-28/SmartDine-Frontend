@@ -135,36 +135,42 @@ function showCheckoutMessage(text, type = "success") {
 }
 
 // -------------------- FOOD IMAGES --------------------
+
 function getFoodImage(filename, foodName = "") {
-const value = String(filename || "").trim();
-const name = String(foodName || "").toLowerCase().trim();
+    const name = String(foodName).toLowerCase().trim();
 
-if (
-    /^https?:\/\//i.test(value) &&
-    !value.toLowerCase().includes("placehold.co")
-) {
-    return value;
-}
+    // Use the correct image for each available food item
+    const foodImages = {
+        "chicken biryani": "/images/chicken.jpg",
+        "paneer biryani": "/images/paneer-biryani.jpg",
+        "pizza": "/images/pizza.jpg",
+        "burger": "/images/burger.jpg",
+        "classic cold coffee": "/images/cold-coffee.jpg",
+        "chocolate cold coffee": "/images/cold-coffee.jpg"
+    };
 
-if (name.includes("biryani")) {
-    return "/images/biryani.jpg";
-}
+    // Match the food name first
+    if (foodImages[name]) {
+        return foodImages[name];
+    }
 
-if (name.includes("pizza")) {
-    return "/images/pizza.jpg";
-}
+    // Use a valid image URL supplied by the API, if available
+    const value = String(filename || "").trim();
 
-if (name.includes("burger")) {
-    return "/images/burger.jpg";
-}
+    if (
+        /^https?:\/\//i.test(value) &&
+        !value.toLowerCase().includes("placehold.co")
+    ) {
+        return value;
+    }
 
-if (name.includes("coffee")) {
-    return "/images/coffee.jpg";
-}
+    // Use the supplied filename if it exists
+    if (value && !value.includes("..") && !value.startsWith("/")) {
+        return `/images/${encodeURIComponent(value)}`;
+    }
 
-return "https://placehold.co/400x300?text=Food";
-
-
+    // Show a placeholder for items without a matching image
+    return "https://placehold.co/400x300?text=Food";
 }
 
 // -------------------- HTML ESCAPING --------------------
